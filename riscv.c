@@ -32,17 +32,18 @@ void init_regs(){
  */
 bool interpret(char* instr){
 	int instruction;
-
+	char c = *instr;
 	//Checking first letter to determine what instruction was passed
 	//1 for Load, 2 for Store, 3 for Add, 4 for Add Immediate
-	if(instr[0] == 'L')
+	if(c == 'L')
 		instruction = 1;
-	else if(instr[0] == 'S')
+	else if(c == 'S')
 		instruction = 2;
-	else if(instr[0] == 'A')
-		if(instr[3] == 'I')
+	else if(c == 'A'){
+		c = *(instr+3);
+		if(c == 'I')
 			instruction = 4;
-		instruction = 3;
+		instruction = 3;}
 	else
 		return false;
 
