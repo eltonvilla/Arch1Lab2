@@ -33,6 +33,8 @@ void init_regs(){
 bool interpret(char* instr){
 	int instruction;
 	char c = *instr;
+	bool success = false;
+
 	//Checking first letter to determine what instruction was passed
 	//1 for Load, 2 for Store, 3 for Add, 4 for Add Immediate
 	if(c == 'L')
@@ -43,11 +45,31 @@ bool interpret(char* instr){
 		c = *(instr+3);
 		if(c == 'I')
 			instruction = 4;
-		instruction = 3;}
+		else
+			instruction = 3;}
 	else
-		return false;
+		return success;
 
-	return true;
+	success = true;
+
+	switch(instruction){
+		case 1:
+			printf("perform LOAD\n");
+			break;
+		case 2:
+			printf("perform STORE\n");
+			break;
+		case 3:
+			printf("perform ADD\n");
+			break;
+		case 4:
+			printf("perform ADDI\n");
+			break;
+		default:
+			printf("Could not perform instruction.\n");
+	}
+
+	return success;
 }
 
 
