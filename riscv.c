@@ -31,6 +31,21 @@ void init_regs(){
  * as a parameter to this function.
  */
 bool interpret(char* instr){
+	int instruction;
+
+	//Checking first letter to determine what instruction was passed
+	//1 for Load, 2 for Store, 3 for Add, 4 for Add Immediate
+	if(instr[0] == 'L')
+		instruction = 1;
+	else if(instr[0] == 'S')
+		instruction = 2;
+	else if(instr[0] == 'A')
+		if(instr[3] == 'I')
+			instruction = 4;
+		instruction = 3;
+	else
+		return false;
+
 	return true;
 }
 
@@ -65,6 +80,16 @@ int main(){
 
 	// Below is a sample program to a write-read. Overwrite this with your own code.
 	write_read_demo();
+
+	char input[1000];
+	bool interpreted = false;
+
+	printf("Please enter RISC-V instruction or EOF to finish.\n(Use space delimiters)\n$");
+	fgets(input, 1000, stdin);
+
+	printf("Your instruction is: %s\n", input);
+	interpreted = interpret(input);
+	printf("Interpretation was %d\n", interpreted);
 
 	return 0;
 }
