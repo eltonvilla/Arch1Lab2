@@ -101,18 +101,30 @@ int main(){
 	// Do not write any code between init_regs
 	init_regs(); // DO NOT REMOVE THIS LINE
 
+	//print_regs();
+
 	// Below is a sample program to a write-read. Overwrite this with your own code.
 	write_read_demo();
 
-	char input[1000];
-	bool interpreted = false;
+	printf("RV32 Interpreter.\nType RV32 instructions. Use upper-case letters and space as a delimeter.\nEnter 'EOF' character to end program.\n");
 
-	printf("Please enter RISC-V instruction or EOF to finish.\n(Use space delimiters)\n$");
-	fgets(input, 1000, stdin);
+	char* instruction = malloc(1000 * sizeof(char));
+	bool is_null = false;
 
-	printf("Your instruction is: %s\n", input);
-	interpreted = interpret(input);
-	printf("Interpretation was %d\n", interpreted);
+	//fgets() returns null if EOF is reached.
+	is_null = fgets(instruction, 1000, stdin) == NULL;
+	while(!is_null){
 
+	printf("Your instruction is: %s\n", instruction);
+	interpret(instruction);
+	/**
+	printf("\n");
+	print_regs();
+	printf("\n");
+	**/
+	is_null = fgets(instruction, 1000, stdin) == NULL;
+	}
+
+	printf("Graceful exit.\n");
 	return 0;
 }
