@@ -35,11 +35,36 @@ bool non_delim_character (char c){
 	return is_non_delim;
 }
 
+/*Return true if c is not a whitespace character*/
+bool non_whitespace_char(char c){
+	bool non_whitespace = false;
+
+	if((c>= 33) && (c <= 126)){
+		non_whitespace = true;
+	}
+
+	return non_whitespace;
+}
+
 /*Returns a pointer to the first character of the next
-	space-separated word*/
-char *word_start (char* str){
+	delimeter-separated word*/
+char *word_start (char* str, char c){
 	char current = *str;
 	int i = 0;
+
+	//check if delim is not a whitespace character
+	if(non_whitespace_char(c)){
+		while(current == c){
+			i += 1;
+			current = *(str+i);
+			//Check for zero terminator to avoid endless loop
+			if(current == 0){
+				return (str+i);
+			}
+		}
+
+		return (str+i);
+	}
 
 	//checking for whitespace
 	while((delim_character(current) == true)||(non_delim_character(current) == true)){
@@ -56,7 +81,7 @@ char *word_start (char* str){
 
 /*Returns a pointer to the first space character of the zero
 	 terminated string*/
-char *end_word (char* str){
+char *end_word (char* str, char c){
 	char current = *str;
 	int i = 0;
 
