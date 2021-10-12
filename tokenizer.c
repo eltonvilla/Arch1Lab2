@@ -85,6 +85,19 @@ char *end_word (char* str, char c){
 	char current = *str;
 	int i = 0;
 
+	//checking if delim is not a whitespace character
+	if(non_whitespace_char(c)){
+		while(current != c){
+			i += 1;
+			current = *(str+i);
+			if(current == 0){
+				return(str+i);
+			}
+		}
+
+		return (str+i);
+	}
+
 	while((delim_character(current) == false) && (non_delim_character(current) == false)){
 		i += 1;
 		current = *(str+i);
@@ -98,12 +111,12 @@ char *end_word (char* str, char c){
 }
 
 //Counts the number of words or tokens
-int count_tokens(char* str){
+int count_tokens(char* str, char c){
 	int count = 0;
 
 	while(*str != '\n'){
-		str = word_start(str);
-		str = end_word(str);
+		str = word_start(str, c);
+		str = end_word(str, c);
 		count += 1;
 	}
 
@@ -134,11 +147,11 @@ char* copy_str (char *inStr, short len){
 	return (copy-len);
 }
 
-char** tokenize (char* str){
-	int numTokens = count_tokens(str);
+char** tokenize (char* str, char c){
+	int numTokens = count_tokens(str, c);
 	char** tokens = (char**)malloc((numTokens+1)*sizeof(char*));
-	char* tokenStart = word_start(str);
-	char* tokenEnd = end_word(tokenStart);
+	char* tokenStart = word_start(str, c);
+	char* tokenEnd = end_word(tokenStart, c);
 	int tokenSize = tokenEnd - tokenStart;
 	int i = 0;
 
@@ -151,8 +164,8 @@ char** tokenize (char* str){
 
 	//Store rest of tokens into vector
 	while(numTokens > 0){
-		tokenStart = word_start(tokenEnd);
-		tokenEnd = end_word(tokenStart);
+		tokenStart = word_start(tokenEnd, c);
+		tokenEnd = end_word(tokenStart, c);
 		tokenSize = tokenEnd - tokenStart;
 
 		tokens[i] = (char*)malloc((tokenSize+1)*sizeof(char));

@@ -117,6 +117,8 @@ int main(){
 
 	printf("Your instruction is: %s\n", instruction);
 	interpret(instruction);
+	printf("\nTokenizing by space:\n%s\n", tokenize(instruction, ' '));
+	printf("\nTokenizing by letter a:\n%s\n", tokenize(instruction, 'a'));
 	/**
 	printf("\n");
 	print_regs();
