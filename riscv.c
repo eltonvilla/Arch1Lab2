@@ -23,7 +23,42 @@ void init_regs(){
 		reg[i] = i;
 }
 
+bool load(char* instr){
+	bool success = false;
+	printf("done\n");
+	char* token = strtok(instr, " ");
+	printf("done\n");
+	printf("%s\n", token);
+	//char* des_reg = tokens[1];
+	printf("done\n");
+	//char** param_two = strtok(tokens[2], "(");
+	printf("done\n");
+	//char* imm = param_two[0];
+	printf("done\n");
+	//char* sou_reg = param_two[1];
+	printf("done\n");
 
+	//printf("Destination: %s\nImmediate: %s\nSource: %s\n",des_reg,imm,sou_reg);
+	return success;
+}
+
+bool store(char* instr){
+	bool success = false;
+
+	return success;
+}
+
+bool add(char* instr){
+	bool success = false;
+
+	return success;
+}
+
+bool addimm(char* instr){
+	bool success = false;
+
+	return success;
+}
 
 /**
  * Fill out this function and use it to read interpret user input to execute RV64 instructions.
@@ -47,23 +82,27 @@ bool interpret(char* instr){
 			instruction = 4;
 		else
 			instruction = 3;}
-	else
+	else{
+		printf("Invalid instruction.\n");
 		return success;
-
-	success = true;
+	}
 
 	switch(instruction){
 		case 1:
-			printf("perform LOAD\n");
+			printf("performing LOAD\n");
+			success = load(instr);
 			break;
 		case 2:
-			printf("perform STORE\n");
+			printf("performing STORE\n");
+			success = store(instr);
 			break;
 		case 3:
-			printf("perform ADD\n");
+			printf("performing ADD\n");
+			success = add(instr);
 			break;
 		case 4:
-			printf("perform ADDI\n");
+			printf("performing ADDI\n");
+			success = addimm(instr);
 			break;
 		default:
 			printf("Could not perform instruction.\n");
@@ -71,7 +110,6 @@ bool interpret(char* instr){
 
 	return success;
 }
-
 
 /**
  * Simple demo program to show the usage of read_address() and write_address() found in memory.c
